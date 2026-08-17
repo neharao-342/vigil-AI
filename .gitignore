@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / web
+web/node_modules/
+web/dist/
+npm-debug.log*
+
+# Models & data (user-supplied)
+vision/models/*.pt
+data/
+# Ignore datasets by default, but bundle the small COCO128 eval set so the
+# repo is self-contained and `python tools/evaluate.py` runs out of the box.
+datasets/*
+!datasets/coco128/
+datasets/coco128.zip
+datasets/**/*.zip
+*.faiss
+
+# Logs & db
+*.log
+*.sqlite3
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

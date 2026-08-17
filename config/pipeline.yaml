@@ -1,0 +1,45 @@
+# VIGIL pipeline DAG (S0 -> S3 vision front-half).
+#
+# Nodes reference blocks registered in `engines.blocks` by their `name`.
+# Edges connect a source node's output port to a target node's input port
+# using the form `<node>.<port>`. The graph executor (core.graph) validates
+# this spec, topologically sorts it, and runs each block in order.
+
+name: default
+version: 1
+
+nodes:
+  - id: cam
+    block: capture        # S0 - Capture
+    config:
+      source: "stub://camera"
+      width: 640
+      height: 480
+
+  - id: pre
+    block: clean          # S1 - Clean / normalize
+    config:
+      size: 640
+      color_space: RGB
+
+  - id: det
+    block: detect         # S2 - Detect objects
+    config:
+      min_confidence: 0.25
+
+  - id: val
+    block: validate       # S3 - Validate detections
+    config:
+      min_confidence: 0.25
+
+edges:
+  - from: cam.frame
+    to: pre.frame
+  - from: pre.frame
+    to: det.frame
+  - from: det.detections
+    to: val.detections
+
+# The graph terminates at `val.detections` (ValidatedDetections), which the
+# L5 Adjudicator consumes to produce a risk-scored RiskEvent.
+output: val.detections

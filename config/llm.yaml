@@ -1,0 +1,19 @@
+# VIGIL LLM core configuration.
+#
+# This is the ONLY place a model backend is referenced. VIGIL speaks a single
+# OpenAI-compatible /v1 contract to freellmapi and never names a provider or
+# loads weights itself -- freellmapi decides the concrete provider at call time.
+#
+# Values here are overridden by the matching VIGIL_LLM_* environment variables
+# (see .env.example); this file documents the defaults and shape.
+
+base_url: ${VIGIL_LLM_BASE_URL}   # e.g. http://freellmapi:8080/v1 -- the sole LLM door
+token: ${VIGIL_LLM_TOKEN}         # freellmapi-... (unified key from the freellmapi Keys page)
+
+# No chat model name is hardcoded: freellmapi routes to the highest-priority
+# healthy, in-budget provider. `auto` defers that choice entirely to the router.
+chat_model: ${VIGIL_LLM_CHAT_MODEL}    # default: auto
+embed_model: ${VIGIL_LLM_EMBED_MODEL}  # embedding failover is locked to one vector dim so FAISS never breaks
+
+routing: priority-healthy-in-budget
+sticky_session_minutes: 30

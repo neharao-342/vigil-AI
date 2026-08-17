@@ -1,0 +1,47 @@
+{
+  "dataset": "coco128 (ultralytics.com/assets/coco128.zip)",
+  "n_images": 30,
+  "detector": "yolov8n.pt (COCO-pretrained, conf>=0.25)",
+  "reasoning_backend": "freellmapi (live)",
+  "fallback_rate": 0.0,
+  "detection_all_classes": {
+    "precision": 0.6993,
+    "recall": 0.5815,
+    "f1": 0.635,
+    "tp": 107,
+    "fp": 46,
+    "fn": 77
+  },
+  "detection_security_relevant": {
+    "precision": 0.8,
+    "recall": 0.6076,
+    "f1": 0.6906,
+    "tp": 48,
+    "fp": 12,
+    "fn": 31,
+    "classes": [
+      "backpack",
+      "bicycle",
+      "bus",
+      "car",
+      "dog",
+      "handbag",
+      "knife",
+      "motorcycle",
+      "person",
+      "suitcase",
+      "truck"
+    ]
+  },
+  "latency_ms": {
+    "detect_p50": 187.45,
+    "detect_mean": 436.49,
+    "adjudicate_p50": 518.62,
+    "adjudicate_mean": 535.5
+  },
+  "risk_score": {
+    "mean": 0.3667,
+    "max": 0.965,
+    "min": 0.0
+  }
+}

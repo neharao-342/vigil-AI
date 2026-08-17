@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIGIL — Vision + Reasoning Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>VIGIL</h1>
+    <span class="tagline">Vision + Reasoning Pipeline</span>
+    <span id="backend" class="badge" title="Reasoning backend">backend: …</span>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Analyze Frame</h2>
+      <p class="hint">Paste validated detections and submit to the L4 API.</p>
+      <label for="api">API base URL</label>
+      <input id="api" type="text" value="http://localhost:8000/v1" />
+
+      <label for="payload">Request payload (JSON)</label>
+      <textarea id="payload" rows="12" spellcheck="false"></textarea>
+
+      <div class="actions">
+        <button id="analyze" type="button">Analyze</button>
+        <button id="health" type="button" class="secondary">Check health</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Result</h2>
+      <div id="risk" class="risk">
+        <div class="risk-score" id="score">–</div>
+        <div class="risk-label" id="label">no result yet</div>
+      </div>
+      <ul class="meta">
+        <li>sanitized: <span id="sanitized">–</span></li>
+        <li>fallback: <span id="fallback">–</span></li>
+      </ul>
+      <pre id="raw" class="raw"></pre>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>VIGIL dashboard — static client, no build step.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
